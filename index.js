@@ -41,4 +41,4 @@ function sendTestMessages() {
 }
 
 showTopics();
-//sendTestMessages();
+sendTestMessages();
