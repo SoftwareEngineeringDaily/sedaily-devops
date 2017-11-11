@@ -5,7 +5,6 @@ import app from '../../index';
 import config from '../../config/config';
 
 chai.config.includeStack = true;
-console.log(httpStatus)
 
 describe('## Auth APIs', () => {
   const validEvent = {
