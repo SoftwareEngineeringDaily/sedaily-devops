@@ -22,10 +22,10 @@ describe('## Auth APIs', () => {
     eventType: 'login'
   };
 
-  describe('# POST /api/events/login', () => {
+  describe('# POST /api/event', () => {
     it('should work', (done) => {
       request(app)
-        .post('/api/events/login')
+        .post('/api/event')
         .send(validEvent)
         .expect(httpStatus.OK)
         .then((res) => {
@@ -36,7 +36,7 @@ describe('## Auth APIs', () => {
 
     it('should NOT work', (done) => {
       request(app)
-        .post('/api/events/login')
+        .post('/api/event')
         .send(invalidEvent)
         .expect(httpStatus.BAD_REQUEST)
         .then((res) => {

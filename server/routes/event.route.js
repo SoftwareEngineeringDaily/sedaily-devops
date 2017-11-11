@@ -7,8 +7,8 @@ const router = express.Router();
 router.route('/')
   .get(eventCtrl.list);
 
-router.route('/login')
-  .post(validate(paramValidation.event), eventCtrl.loginEvent);
+router.route('/')
+  .post(validate(paramValidation.event), eventCtrl.newEvent);
 
 export default router;
 

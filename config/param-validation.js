@@ -24,10 +24,11 @@ validate the event has this model:
 */
 
 /*
-{ topic: 'login', partition: 0 },
-+        { topic: 'logout', partition: 0 },
-+        { topic: 'play_episode', partition: 0 },
-+        { topic: 'pause_episode', partition: 0 },
-+        { topic: 'like_episode', partition: 0 },
-+        { topic: 'completed_episode', partition: 0 }
+validate that only these events are allowed
+  login
+  logout
+  play_episode
+  pause_episode
+  like_episode
+  completed_episode
 */

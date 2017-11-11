@@ -1,27 +1,25 @@
 import Bluebird from 'bluebird';
 import producer from '../helpers/Producer';
 
-
+/*
+clientId: Joi.string().required(),
+      deviceType: Joi.string().required(),
+      location: Joi.string().required(),
+      eventTime: Joi.string().required(),
+      eventType: Joi.string().required()
+*/
 
 function list(req, res, next) {
-	const { postId } = req.params;
-  const { parentCommentId } = req.body;
-  const { content } = req.body;
-  const { user } = req;
-  
-	var event = {
-			client_id: '235823455',
-			device_type: 'iPhone 6',
-			location: 'Seattle, WA',
-			event_time: new Date(),
-			event_type: 'login'
-		}
-	producer.sendMessage(event.event_type, JSON.stringify(event));
-  res.json({hello: 'world'});
+	producer.showTopics((results) => {
+		res.json(JSON.stringify(results));
+	})
 }
 
-function loginEvent(req, res, next) {
+function newEvent(req, res, next) {
+	const { eventType } = req.body;
+	console.log(eventType)
+	//producer.sendMessage(eventType, JSON.stringify(eventType));
 	res.json({hello: 'world'});
 }
 
-export default { list, loginEvent };
+export default { list, newEvent };

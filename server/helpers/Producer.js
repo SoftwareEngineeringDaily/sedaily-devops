@@ -5,14 +5,13 @@ const client = new kafka.Client();
 const producer = new Producer(client)
     
 
-function showTopics() {
-  client.once('connect', function () {
-    client.loadMetadataForTopics([], function (error, results) {
-      if (error) {
-        return console.error(error);
-      }
-      console.log('Topics:', JSON.stringify(results, '1.metadata'));;
-    });
+function showTopics(callback) {
+  console.log('getting topics')
+  client.loadMetadataForTopics([], function (error, results) {
+    if (error) {
+      return console.error(error);
+    }
+    callback(results[0].metadata)
   });
 }
 
