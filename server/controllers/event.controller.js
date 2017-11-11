@@ -1,10 +1,14 @@
 import Bluebird from 'bluebird';
 import producer from '../helpers/Producer';
-import consumer from '../helpers/Consumer';
 
-consumer.listenForMessages()
+
 
 function list(req, res, next) {
+	const { postId } = req.params;
+  const { parentCommentId } = req.body;
+  const { content } = req.body;
+  const { user } = req;
+  
 	var event = {
 			client_id: '235823455',
 			device_type: 'iPhone 6',
