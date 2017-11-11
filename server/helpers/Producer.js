@@ -11,7 +11,7 @@ function showTopics(callback) {
     if (error) {
       return console.error(error);
     }
-    callback(results[0].metadata)
+    callback(results[1].metadata)
   });
 }
 
