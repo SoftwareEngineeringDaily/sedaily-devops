@@ -10,6 +10,5 @@ Small proof of concept for using Kafka event streams
 
 ## Usage
   - Running `npm start` will start the API server on localhost:3000
-  - Use the following endpoints to send events to the Kafka instance
-    - /api/topics - will list all topics available
-    - POST to /api/userLogin - sends a message to the userLogin topic
+  - Run `npm run test`
+    
