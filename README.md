@@ -9,4 +9,7 @@ Small proof of concept for using Kafka event streams
   - The docker-compose.yml file is configured to create several topics at container creation time
 
 ## Usage
-  - Running `npm start` will log the all of the topics created, start the consumer, and send a few test messages via the producer, which are logged to the console
+  - Running `npm start` will start the API server on localhost:3000
+  - Use the following endpoints to send events to the Kafka instance
+    - /api/topics - will list all topics available
+    - POST to /api/userLogin - sends a message to the userLogin topic

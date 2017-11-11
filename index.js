@@ -1,44 +1,17 @@
-const kafka = require('kafka-node');
-const Consumer = kafka.Consumer;
-const client = new kafka.Client();
-const _ = require('lodash');
+// config should be imported before importing any other file
+import config from './config/config';
+import app from './config/express';
 
-const producer = require('./producer');
-const consumer = require('./consumer');
+// make bluebird default Promise
+Promise = require('bluebird');
 
-function showTopics() {
-	client.once('connect', function () {
-    client.loadMetadataForTopics([], function (error, results) {
-      if (error) {
-      	return console.error(error);
-      }
-      console.log('Topics:', JSON.stringify(_.get(results, '1.metadata')), '\n');
-    });
-	});
+// module.parent check is required to support mocha watch
+// src: https://github.com/mochajs/mocha/issues/1912
+if (!module.parent) {
+  // listen on port config.port
+  app.listen(config.port, () => {
+    console.info(`server started on port ${config.port} (${config.env})`); // eslint-disable-line no-console
+  });
 }
 
-function sendTestMessages() {
-	setTimeout(() => {
-		var event = {
-			client_id: '235823455',
-			device_type: 'iPhone 6',
-			location: 'Seattle, WA',
-			event_time: new Date(),
-			event_type: 'login'
-		}
-		producer.sendMessage(event.event_type, JSON.stringify(event));
-
-		event = {
-			client_id: '793986933',
-			device_type: 'Galaxy 5',
-			location: 'Miami, FL',
-			event_time: new Date(),
-			event_type: 'logout'
-		}
-		producer.sendMessage(event.event_type, JSON.stringify(event));
-
-	}, 2000)
-}
-
-showTopics();
-sendTestMessages();
+export default app;

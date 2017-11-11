@@ -1,16 +1,108 @@
 {
   "name": "sedaily-event",
   "version": "1.0.0",
-  "description": "",
+  "description": "Gateway service for accepting SEDaily events and publishing to Kafka",
+  "author": "Andrew Lloyd <andrew85.lloyd@gmail.com>",
   "main": "index.js",
-  "dependencies": {
-    "kafka-node": "^2.2.3",
-    "lodash": "^4.17.4"
+  "private": false,
+  "engines": {
+    "node": "6.11.1",
+    "npm": "5.5.1"
   },
-  "devDependencies": {},
   "scripts": {
-    "start": "node index.js"
+    "launch": "npm run build && node dist/index.js",
+    "start": "gulp serve",
+    "start:debug": "cross-env DEBUG=software-engineering-daily-api:* npm run start",
+    "build": "gulp",
+    "lint": "esw *.js server config --color",
+    "lint:watch": "npm run lint -- --watch",
+    "precommit-removedfornow": "npm run lint && npm run test",
+    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --ui bdd --reporter spec --colors --compilers js:babel-core/register server/tests --recursive",
+    "test:watch": "npm run test -- --watch",
+    "test:coverage": "cross-env NODE_ENV=test ./node_modules/.bin/istanbul cover _mocha -- --ui bdd --reporter spec --colors --compilers js:babel-core/register server/tests --recursive",
+    "test:check-coverage": "npm run test:coverage && istanbul check-coverage",
+    "report-coverage": "coveralls < ./coverage/lcov.info"
   },
-  "author": "",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SoftwareEngineeringDaily/sedaily-event-stream.git"
+  },
+  "keywords": [],
+  "dependencies": {
+    "babel-cli": "6.26.0",
+    "babel-core": "6.26.0",
+    "babel-plugin-add-module-exports": "0.2.1",
+    "babel-preset-es2015": "6.24.1",
+    "babel-preset-stage-2": "6.24.1",
+    "bcrypt-nodejs": "0.0.3",
+    "bluebird": "3.5.0",
+    "body-parser": "1.17.2",
+    "chai": "4.1.2",
+    "commitizen": "2.9.6",
+    "compression": "1.7.0",
+    "cookie-parser": "1.4.3",
+    "cors": "2.8.4",
+    "coveralls": "2.13.1",
+    "cross-env": "5.0.5",
+    "cz-conventional-changelog": "2.0.0",
+    "debug": "3.0.1",
+    "del": "3.0.0",
+    "dotenv": "4.0.0",
+    "eslint": "4.6.1",
+    "eslint-config-airbnb-base": "12.0.0",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-watch": "3.1.2",
+    "express": "4.15.4",
+    "express-jwt": "5.3.0",
+    "express-validation": "1.0.2",
+    "express-winston": "2.4.0",
+    "gulp": "3.9.1",
+    "gulp-babel": "7.0.0",
+    "gulp-load-plugins": "1.5.0",
+    "gulp-newer": "1.3.0",
+    "gulp-nodemon": "2.2.1",
+    "gulp-sourcemaps": "2.6.1",
+    "gulp-util": "3.0.8",
+    "helmet": "3.8.1",
+    "http-status": "1.0.1",
+    "istanbul": "1.0.0-alpha.2",
+    "joi": "10.6.0",
+    "jsonwebtoken": "8.0.0",
+    "kafka-node": "2.2.3",
+    "lodash": "4.17.4",
+    "method-override": "2.3.9",
+    "mocha": "3.5.0",
+    "moment": "2.18.1",
+    "mongoose": "4.11.10",
+    "morgan": "1.8.2",
+    "passport": "0.4.0",
+    "passport-facebook-token": "3.3.0",
+    "raccoon": "0.2.8",
+    "redis": "2.8.0",
+    "run-sequence": "2.1.0",
+    "supertest": "3.0.0",
+    "supertest-as-promised": "4.0.2",
+    "swagger-jsdoc": "^1.9.7",
+    "validate-commit-msg": "2.14.0",
+    "winston": "2.3.1"
+  },
+  "license": "MIT",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-2"
+    ],
+    "plugins": [
+      "add-module-exports"
+    ]
+  },
+  "devDependencies": {
+    "minimist": "^1.2.0",
+    "swagger-node-express": "^2.1.3"
+  }
 }

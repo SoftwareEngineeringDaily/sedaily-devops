@@ -1,4 +1,7 @@
-const kafka = require('kafka-node');
+import httpStatus from 'http-status';
+
+import kafka from 'kafka-node';
+
 const Consumer = kafka.Consumer;
 const client = new kafka.Client();
 const consumer = new Consumer(
@@ -25,4 +28,4 @@ consumer.on('error', function (error) {
 })
 
 
-listenForMessages();
+export default { listenForMessages };
