@@ -19,12 +19,13 @@ producer.on('ready', function () {
     console.log('Producer ready\n');
 });
 
-function sendMessage(topic, message) {
+function sendMessage(topic, message, callback) {
   console.log(topic, message)
     producer.send([{ topic: topic, messages: message }], function (err, data) {
-        if (err) {
-            return console.log(err)
-        }
+      if (err) {
+          callback(err)
+      }
+      callback(null, data)
     });
 }
 

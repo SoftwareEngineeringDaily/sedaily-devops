@@ -17,9 +17,13 @@ function list(req, res, next) {
 
 function newEvent(req, res, next) {
 	const { eventType } = req.body;
-	console.log(eventType)
-	//producer.sendMessage(eventType, JSON.stringify(eventType));
-	res.json({hello: 'world'});
+	producer.sendMessage(eventType, JSON.stringify(new Date()), (err, result) => {
+		if (err) {
+			res.json(err);
+		} else {
+			res.json(result);		
+		}
+	});
 }
 
 export default { list, newEvent };
