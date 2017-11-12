@@ -1,14 +1,22 @@
 import Joi from 'joi';
 
 export default {
-  // UPDATE /api/users/:userId
+  // UPDATE /api/event
   event: {
     body: {
       clientId: Joi.string().required(),
-      deviceType: Joi.string().required(),
+      deviceType: Joi.string().required().valid(['iOS', 'Android', 'Browser']),
       location: Joi.string().required(),
-      eventTime: Joi.string().required(),
-      eventType: Joi.string().required()
+      eventTime: Joi.date().timestamp('unix').required(),
+      eventType: Joi.string().required().valid(
+        [
+          'login',
+          'logout',
+          'play_episode',
+          'pause_episode',
+          'like_episode',
+          'completed_episode'
+        ])
     }
   }
 
@@ -21,14 +29,4 @@ validate the event has this model:
   Location (where is the request originating from)
   EventTime (UTC time the event was published)
   EventType
-*/
-
-/*
-validate that only these events are allowed
-  login
-  logout
-  play_episode
-  pause_episode
-  like_episode
-  completed_episode
 */
