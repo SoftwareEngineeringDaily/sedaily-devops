@@ -1,7 +1,7 @@
 
-# Kafka Event Stream
+# SEDaily Event Stream Processor
 
-Small proof of concept for using Kafka event streams
+The real time event processing infrastructure gateway server is responsible for authenticating connecting clients and validating event  payload schemas before putting the event on the SED event bus.
 
 ## Set up (local)
   - `npm install`
