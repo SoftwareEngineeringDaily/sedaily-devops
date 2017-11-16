@@ -12,14 +12,6 @@ describe('## Auth APIs', () => {
 
   const invalidUserToken = 'invalid.token';
 
-  const validEvent = {
-    clientId: '1234567',
-    deviceType: 'iOS',
-    location: 'Tacoma',
-    eventTime: new Date().getTime(),
-    eventType: 'login'
-  };
-
   describe('# POST /api/event', () => {
     it('errors when no auth token sent', (done) => {
       request(app)
@@ -36,7 +28,6 @@ describe('## Auth APIs', () => {
       request(app)
         .post('/api/v1/event')
         .set('Authorization', `Bearer ${invalidUserToken}`)
-        .send(validEvent)
         .expect(httpStatus.UNAUTHORIZED)
         .then((res) => {
           expect(res.body).to.exist; //eslint-disable-line
