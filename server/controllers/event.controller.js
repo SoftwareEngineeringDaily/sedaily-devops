@@ -1,19 +1,7 @@
 import Bluebird from 'bluebird';
-import producer from '../helpers/Producer';
+import EventStream from '../../api/EventStream';
 
-/*
-clientId: Joi.string().required(),
-      deviceType: Joi.string().required(),
-      location: Joi.string().required(),
-      eventTime: Joi.string().required(),
-      eventType: Joi.string().required()
-*/
-
-function list(req, res, next) {
-	producer.showTopics((results) => {
-		res.json(JSON.stringify(results));
-	})
-}
+const producer = new EventStream.EventStreamProducer();
 
 function newEvent(req, res, next) {
 	const { eventType } = req.body;
