@@ -14,4 +14,4 @@ function newEvent(req, res, next) {
 	});
 }
 
-export default { list, newEvent };
+export default { newEvent };
