@@ -12,32 +12,10 @@ describe('## Auth APIs', () => {
 
   const invalidUserToken = 'invalid.token';
 
-  const validEvent = {
-    clientId: '1234567',
-    deviceType: 'iOS',
-    location: 'Tacoma',
-    eventTime: new Date().getTime(),
-    eventType: 'login'
-  };
-
   describe('# POST /api/event', () => {
-    it('send a valid event', (done) => {
-      request(app)
-        .post('/api/v1/event')
-        .set('Authorization', `Bearer ${validUserToken}`)
-        .send(validEvent)
-        .expect(httpStatus.OK)
-        .then((res) => {
-          expect(res.body).to.exist; //eslint-disable-line
-          done();
-        })
-        .catch(done);
-    });
-
     it('errors when no auth token sent', (done) => {
       request(app)
         .post('/api/v1/event')
-        .send(validEvent)
         .expect(httpStatus.UNAUTHORIZED)
         .then((res) => {
           expect(res.body).to.exist; //eslint-disable-line
@@ -50,7 +28,6 @@ describe('## Auth APIs', () => {
       request(app)
         .post('/api/v1/event')
         .set('Authorization', `Bearer ${invalidUserToken}`)
-        .send(validEvent)
         .expect(httpStatus.UNAUTHORIZED)
         .then((res) => {
           expect(res.body).to.exist; //eslint-disable-line
@@ -66,7 +43,6 @@ describe('## Auth APIs', () => {
         .expect(httpStatus.BAD_REQUEST)
         .then((res) => {
           expect(res.body).to.exist; //eslint-disable-line
-          expect(res.body.message).to.eql('"clientId" is required and "deviceType" is required and "location" is required and "eventTime" is required and "eventType" is required')
           done();
         })
         .catch(done);

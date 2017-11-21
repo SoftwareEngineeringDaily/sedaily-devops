@@ -1,17 +1,19 @@
 import Bluebird from 'bluebird';
-import producer from '../helpers/Producer';
+import EventStream from '../../api/EventStream';
+import Joi from 'joi';
+import paramValidation from '../../config/param-validation';
+import APIError from '../helpers/APIError';
 
-/*
-clientId: Joi.string().required(),
-      deviceType: Joi.string().required(),
-      location: Joi.string().required(),
-      eventTime: Joi.string().required(),
-      eventType: Joi.string().required()
-*/
+const producer = new EventStream.EventStreamProducer();
 
-function list(req, res, next) {
-	producer.showTopics((results) => {
-		res.json(JSON.stringify(results));
+function validateEventType(req, res, next) {
+	Joi.validate(paramValidation[req.body.eventType], req.body.eventData, (error) => {
+		if (error) {
+			var err = new APIError(error); //eslint-disable-line
+      next(error);
+		} else {
+			next();
+		}
 	})
 }
 
@@ -21,9 +23,9 @@ function newEvent(req, res, next) {
 		if (err) {
 			res.json(err);
 		} else {
-			res.json(result);		
+			res.json(result);
 		}
 	});
 }
 
-export default { list, newEvent };
+export default { validateEventType, newEvent };

@@ -10,19 +10,6 @@ const router = express.Router();
 router.use(expressJwt({ secret: config.jwtSecret }));
 
 router.route('/')
-  .get(eventCtrl.list);
-
-router.route('/')
-  .post(validate(paramValidation.event), eventCtrl.newEvent);
+  .post(validate(paramValidation.event), eventCtrl.validateEventType, eventCtrl.newEvent);
 
 export default router;
-
-/*
-These are the possible event types:
--Login
--Logout
--Play Episode 
--Pause Episode 
--Thumbs Up / Like  episode 
--Episode listened to completion
-*/
