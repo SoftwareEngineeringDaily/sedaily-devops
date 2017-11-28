@@ -1,8 +1,8 @@
-import { KafkaConsumer } from './KafkaConsumer';
-import { KafkaProducer } from './KafkaProducer';
+import { RedisProducer } from './RedisProducer';
+import { RedisConsumer } from './RedisConsumer';
 
-const EventStreamConsumer = KafkaConsumer;
-const EventStreamProducer = KafkaProducer;
+const EventStreamConsumer = RedisConsumer;
+const EventStreamProducer = RedisProducer;
 
 
 export default { EventStreamConsumer, EventStreamProducer };
