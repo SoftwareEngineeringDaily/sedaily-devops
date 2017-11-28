@@ -8,7 +8,7 @@ const producer = new EventStream.EventStreamProducer();
 const consumer = new EventStream.EventStreamConsumer();
 
 setTimeout(() => {
-	consumer.subscribe({topicOffsets: ['$'], topics: ['mystream']}, (data) => {console.log(data)}, (err) => {console.log(err)});
+	consumer.subscribe({topicOffsets: ['$','$','$','$','$','$','$','$','$','$',], topics: ['login','logout','playEpisode','pauseEpisode','likeEpisode','completedEpisode','fastForwardEpisode','rewindEpisode','seekEpisode','searchEpisode']}, (data) => {console.log(data)}, (err) => {console.log(err)});
 }, 3000)
 
 function validateEventType(req, res, next) {
