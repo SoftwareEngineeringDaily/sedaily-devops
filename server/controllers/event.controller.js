@@ -5,6 +5,11 @@ import paramValidation from '../../config/param-validation';
 import APIError from '../helpers/APIError';
 
 const producer = new EventStream.EventStreamProducer();
+const consumer = new EventStream.EventStreamConsumer();
+
+setTimeout(() => {
+	consumer.subscribe({topicOffsets: ['$','$','$','$','$','$','$','$','$','$',], topics: ['login','logout','playEpisode','pauseEpisode','likeEpisode','completedEpisode','fastForwardEpisode','rewindEpisode','seekEpisode','searchEpisode']}, (data) => {console.log(data)}, (err) => {console.log(err)});
+}, 3000)
 
 function validateEventType(req, res, next) {
 	Joi.validate(paramValidation[req.body.eventType], req.body.eventData, (error) => {
@@ -19,12 +24,11 @@ function validateEventType(req, res, next) {
 
 function newEvent(req, res, next) {
 	const { eventType } = req.body;
-	producer.sendMessage(eventType, JSON.stringify(new Date()), (err, result) => {
+	producer.sendMessage(eventType, JSON.stringify(new Date()), (err) => {
 		if (err) {
-			res.json(err);
-		} else {
-			res.json(result);
+			return res.json(err);
 		}
+		res.json({result: 'success'})
 	});
 }
 
