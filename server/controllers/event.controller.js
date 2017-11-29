@@ -12,10 +12,10 @@ setTimeout(() => {
 }, 3000)
 
 function validateEventType(req, res, next) {
-	Joi.validate(paramValidation[req.body.eventType], req.body.eventData, (error) => {
+	Joi.validate(req.body.eventData, paramValidation[req.body.eventType], (error) => {
 		if (error) {
 			var err = new APIError(error); //eslint-disable-line
-      next(error);
+      next(err);
 		} else {
 			next();
 		}
