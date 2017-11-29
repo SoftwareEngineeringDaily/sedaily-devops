@@ -11,18 +11,19 @@ describe('## completedEpisode Events', () => {
 
   const invalidUserToken = 'invalid.token';
 
-  const validEvent = {
+  const event = {
   	clientId: '1234567',
     deviceType: 'iOS',
     location: 'Tacoma',
     eventTime: new Date().getTime(),
-    eventType: 'completedEpisode',
-    eventData: {
-    	episodeName: 'Serverless Event-Driven Architechture with Danilo Poccia'
-    }
+    eventType: 'completedEpisode'
   }
 
   it('sends a valid completedEpisode event', (done) => {
+    let validEvent = Object.assign({}, event); 
+    validEvent.eventData = {
+      episodeName: 'Serverless Event-Driven Architechture with Danilo Poccia'
+    }
     request(app)
       .post('/api/v1/event')
       .set('Authorization', `Bearer ${validUserToken}`)
@@ -30,6 +31,36 @@ describe('## completedEpisode Events', () => {
       .expect(httpStatus.OK)
       .then((res) => {
         expect(res.body).to.exist; //eslint-disable-line
+        done();
+      })
+      .catch(done);
+  });
+
+  it('fails when no episodeName is given', (done) => {
+    request(app)
+      .post('/api/v1/event')
+      .set('Authorization', `Bearer ${validUserToken}`)
+      .send(event)
+      .expect(httpStatus.INTERNAL_SERVER_ERROR)
+      .then((res) => {
+        //expect(res.body).to.exist; //eslint-disable-line
+        done();
+      })
+      .catch(done);
+  });
+
+  it('fails when empty episodeName is given', (done) => {
+    let invalidEvent = Object.assign({}, event); 
+    invalidEvent.eventData = {
+      episodeName: ''
+    }
+    request(app)
+      .post('/api/v1/event')
+      .set('Authorization', `Bearer ${validUserToken}`)
+      .send(invalidEvent)
+      .expect(httpStatus.INTERNAL_SERVER_ERROR)
+      .then((res) => {
+        //expect(res.body).to.exist; //eslint-disable-line
         done();
       })
       .catch(done);
