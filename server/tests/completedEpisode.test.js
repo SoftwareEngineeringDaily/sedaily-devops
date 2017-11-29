@@ -29,7 +29,6 @@ describe('## completedEpisode Events', () => {
       .send(validEvent)
       .expect(httpStatus.OK)
       .then((res) => {
-      	console.log(res.body)
         expect(res.body).to.exist; //eslint-disable-line
         done();
       })
