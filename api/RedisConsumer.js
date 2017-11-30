@@ -15,12 +15,12 @@ const parseXreadResponse = response => ({
 
 
 class RedisConsumer extends Consumer {
-  constructor() {
+  constructor(client) {
     super();
-    this.client = new redis.RedisClient();
+    this.client = client || new redis.RedisClient();
   }
 
-  subscribe(args, callback, errorCallback) {
+  subscribe(args, errorCallback, callback) {
     const xreadParams = ['BLOCK', 0, 'STREAMS', ...args.topics, ...args.topicOffsets];
 
     const onMessage = (error, response) => {
@@ -29,13 +29,15 @@ class RedisConsumer extends Consumer {
       } else {
         callback(parseXreadResponse(response));
       }
-      this.client.xread(xreadParams, onMessage);
+      if (!args.readOnce) {
+        this.client.xread(xreadParams, onMessage);
+      }
     };
 
     this.client.xread(xreadParams, onMessage);
   }
 
-  getSlice(args, callback, errorCallback) {
+  getSlice(args, errorCallback, callback) {
     const startId = (args.startId) ? args.startId : '-';
     const stopId = (args.stopId) ? args.stopId : '+';
 

@@ -5,9 +5,9 @@ import { Producer } from './Producer';
 redis.add_command('xadd');
 
 class RedisProducer extends Producer {
-  constructor() {
+  constructor(client) {
     super();
-    this.client = new redis.RedisClient();
+    this.client = client || new redis.RedisClient();
   }
 
   sendMessage(topic, message, errorCallback) {
