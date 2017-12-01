@@ -33,7 +33,6 @@ describe('RedisConsumer', () => {
       );
 
       expect(callback.calledOnce).to.equal(true);
-      console.log(callback)
     });
 
     it('Invokes client error callback on error', () => {
