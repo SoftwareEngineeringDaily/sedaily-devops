@@ -15,9 +15,9 @@ const parseXreadResponse = response => ({
 
 
 class RedisConsumer extends Consumer {
-  constructor() {
+  constructor(client) {
     super();
-    this.client = new redis.RedisClient();
+    this.client = client || new redis.RedisClient();
   }
 
   subscribe(args, callback) {
@@ -29,7 +29,9 @@ class RedisConsumer extends Consumer {
       } else {
         callback(null, parseXreadResponse(response));
       }
-      this.client.xread(xreadParams, onMessage);
+      if (!args.readOnce) {
+        this.client.xread(xreadParams, onMessage);
+      }
     };
 
     this.client.xread(xreadParams, onMessage);
