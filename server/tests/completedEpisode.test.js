@@ -3,6 +3,8 @@ import httpStatus from 'http-status';
 import chai, { expect } from 'chai';
 import app from '../../index';
 import config from '../../config/config';
+import { ConsumerSlice } from './helpers/ConsumerSlice'
+const consumerSlice = new ConsumerSlice()
 
 chai.config.includeStack = true;
 
@@ -24,13 +26,19 @@ describe('## completedEpisode Events', () => {
     validEvent.eventData = {
       episodeName: 'Serverless Event-Driven Architechture with Danilo Poccia'
     }
+    let result;
     request(app)
       .post('/api/v1/event')
       .set('Authorization', `Bearer ${validUserToken}`)
       .send(validEvent)
       .expect(httpStatus.OK)
       .then((res) => {
+        result = res.body.result;
         expect(res.body).to.exist; //eslint-disable-line
+        return consumerSlice.getLastTopicSlice('completedEpisode')
+      })
+      .then((lastSlice) => {
+        expect(result).to.equal(lastSlice); //eslint-disable-line
         done();
       })
       .catch(done);
