@@ -10,7 +10,6 @@ import expressWinston from 'express-winston';
 import expressValidation from 'express-validation';
 import helmet from 'helmet';
 import winstonInstance from './winston';
-import passport from 'passport';
 import routes from '../server/routes/index.route';
 import config from './config';
 import APIError from '../server/helpers/APIError';
@@ -36,7 +35,7 @@ app.use(helmet());
 app.use(cors());
 
 // enable detailed API logging in dev env
-/*if (config.env === 'development') {
+if (config.env === 'development') {
   // expressWinston.requestWhitelist.push('body');
   // expressWinston.responseWhitelist.push('body');
   app.use(expressWinston.logger({
@@ -45,7 +44,7 @@ app.use(cors());
     msg: 'HTTP {{req.method}} {{req.url}} {{res.statusCode}} {{res.responseTime}}ms',
     colorStatus: true // Color the status code (default green, 3XX cyan, 4XX yellow, 5XX red).
   }));
-}*/
+}
 
 // mount all routes on /api path
 app.use('/api/v1', routes);
@@ -83,7 +82,6 @@ app.use((err, req, res, next) => // eslint-disable-line no-unused-vars
   res.status(err.status).json({
     message: err.isPublic ? err.message : httpStatus[err.status],
     stack: config.env === 'development' ? err.stack : {}
-  })
-);
+  }));
 
 export default app;

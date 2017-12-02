@@ -5,8 +5,9 @@ class ConsumerSlice {
   
   getLastTopicSlice(topic) {
     return new Promise((resolve, reject) => {
-      consumer.getSlice({topic: topic}, (err, data) => {
-        resolve(data[data.length - 1][0])
+      consumer.getSlice({ topic: topic }, (err, data) => {
+      	console.log(data)
+        resolve(data.topic)
       })
     })
   }

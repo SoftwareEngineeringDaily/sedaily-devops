@@ -1,7 +1,7 @@
 import express from 'express';
 import expressJwt from 'express-jwt';
-import eventCtrl from '../controllers/event.controller';
 import validate from 'express-validation';
+import eventCtrl from '../controllers/event.controller';
 import config from '../../config/config';
 import paramValidation from '../../config/param-validation';
 
