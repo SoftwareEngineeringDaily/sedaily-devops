@@ -7,7 +7,7 @@ redis.add_command('xrange');
 redis.add_command('xread');
 
 
-const parseXreadResponse = response => ({
+const parseResponse = response => ({
   topic: response[0][0],
   eventId: response[0][1][0][0],
   eventData: response[0][1][0][1][1]
@@ -20,6 +20,7 @@ class RedisConsumer extends Consumer {
     this.client = client || new redis.RedisClient();
   }
 
+
   subscribe(args, callback) {
     const xreadParams = ['BLOCK', 0, 'STREAMS', ...args.topics, ...args.topicOffsets];
 
@@ -27,7 +28,7 @@ class RedisConsumer extends Consumer {
       if (error) {
         callback(error, null);
       } else {
-        callback(null, parseXreadResponse(response));
+        callback(null, parseResponse(response));
       }
       if (!args.readOnce) {
         this.client.xread(xreadParams, onMessage);
@@ -44,15 +45,15 @@ class RedisConsumer extends Consumer {
     const count = args.count ? args.count : 0;
 
     if (count) {
-      argsList.push('COUNT')
-      argsList.push(count)
+      argsList.push('COUNT');
+      argsList.push(count);
     }
 
     this.client.xrange(argsList, (error, response) => {
       if (error) {
         callback(error, null);
       } else {
-        callback(null, response);
+        callback(null, parseResponse(response));
       }
     });
   }
