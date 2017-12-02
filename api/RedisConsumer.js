@@ -20,14 +20,14 @@ class RedisConsumer extends Consumer {
     this.client = client || new redis.RedisClient();
   }
 
-  subscribe(args, errorCallback, callback) {
+  subscribe(args, callback) {
     const xreadParams = ['BLOCK', 0, 'STREAMS', ...args.topics, ...args.topicOffsets];
 
     const onMessage = (error, response) => {
       if (error) {
-        errorCallback(error);
+        callback(error, null);
       } else {
-        callback(parseXreadResponse(response));
+        callback(null, parseXreadResponse(response));
       }
       if (!args.readOnce) {
         this.client.xread(xreadParams, onMessage);
@@ -37,15 +37,22 @@ class RedisConsumer extends Consumer {
     this.client.xread(xreadParams, onMessage);
   }
 
-  getSlice(args, errorCallback, callback) {
+  getSlice(args, callback) {
     const startId = (args.startId) ? args.startId : '-';
     const stopId = (args.stopId) ? args.stopId : '+';
+    const argsList = [args.topic, startId, stopId];
+    const count = args.count ? args.count : 0;
 
-    this.client.xrange([args.topic, startId, stopId], (error, response) => {
+    if (count) {
+      argsList.push('COUNT')
+      argsList.push(count)
+    }
+
+    this.client.xrange(argsList, (error, response) => {
       if (error) {
-        errorCallback(error);
+        callback(error, null);
       } else {
-        callback(response);
+        callback(null, response);
       }
     });
   }

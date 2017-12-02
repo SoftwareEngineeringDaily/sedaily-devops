@@ -23,46 +23,46 @@ export default {
         ])
     }
   },
-  loginEvent: {
-
-  },
-  logoutEvent: {
-
-  },
-  playEpisode: {
+  login: Joi.object().required().keys({
+    userId: Joi.string().required()
+  }),
+  logout: Joi.object().required().keys({
+    userId: Joi.string().required()
+  }),
+  playEpisode: Joi.object().required().keys({
     episodeName: Joi.string().required(),
     minutesPlayed: Joi.number().required(),
     minutesRemaining: Joi.number().required()
-  },
-  pauseEpisode: {
+  }),
+  pauseEpisode: Joi.object().required().keys({
     episodeName: Joi.string().required(),
     minutesPlayed: Joi.number().required(),
     minutesRemaining: Joi.number().required()
-  },
-  likeEpisode: {
+  }),
+  likeEpisode: Joi.object().required().keys({
     episodeName: Joi.string().required(),
     minutesPlayed: Joi.number().required(),
     minutesRemaining: Joi.number().required()
-  },
-  completedEpisode: {
+  }),
+  completedEpisode: Joi.object().required().keys({
     episodeName: Joi.string().required()
-  },
-  fastForwardEpisode: {
+  }),
+  fastForwardEpisode: Joi.object().required().keys({
     episodeName: Joi.string().required(),
     minutesPlayed: Joi.number().required(),
     minutesRemaining: Joi.number().required()
-  },
-  rewindEpisode: {
+  }),
+  rewindEpisode: Joi.object().required().keys({
     episodeName: Joi.string().required(),
     minutesPlayed: Joi.number().required(),
     minutesRemaining: Joi.number().required()
-  },
-  seekEpisode: {
+  }),
+  seekEpisode: Joi.object().required().keys({
     episodeName: Joi.string().required(),
     minutesPlayed: Joi.number().required(),
     minutesRemaining: Joi.number().required()
-  },
-  searchEpisode: {
+  }),
+  searchEpisode: Joi.object().required().keys({
     episodeName: Joi.string().required()
-  }
+  })
 };

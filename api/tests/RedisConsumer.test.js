@@ -26,11 +26,9 @@ describe('RedisConsumer', () => {
     it('Invokes client callback on new message', () => {
       const consumer = new RedisConsumer(getRedisClientStub('callback', 'xread'));
       const callback = sinon.spy();
-      const errorCallback = null;
 
       consumer.subscribe(
         subscriptionArgs,
-        errorCallback,
         callback
       );
 
@@ -39,16 +37,14 @@ describe('RedisConsumer', () => {
 
     it('Invokes client error callback on error', () => {
       const consumer = new RedisConsumer(getRedisClientStub('errorCallback', 'xread'));
-      const errorCallback = sinon.spy();
-      const callback = null;
+      const callback = sinon.spy();
 
       consumer.subscribe(
         subscriptionArgs,
-        errorCallback,
         callback
       );
 
-      expect(errorCallback.calledOnce).to.equal(true);
+      expect(callback.calledOnce).to.equal(true);
     });
   });
 
@@ -56,11 +52,9 @@ describe('RedisConsumer', () => {
     it('Invokes client callback on retrieving slice', () => {
       const consumer = new RedisConsumer(getRedisClientStub('callback', 'xrange'));
       const callback = sinon.spy();
-      const errorCallback = null;
 
       consumer.getSlice(
         subscriptionArgs,
-        errorCallback,
         callback
       );
 
@@ -69,16 +63,14 @@ describe('RedisConsumer', () => {
 
     it('Invokes client error callback on error retrieving slice', () => {
       const consumer = new RedisConsumer(getRedisClientStub('errorCallback', 'xrange'));
-      const callback = null;
-      const errorCallback = sinon.spy();
+      const callback = sinon.spy();
 
       consumer.getSlice(
         subscriptionArgs,
-        errorCallback,
         callback
       );
 
-      expect(errorCallback.calledOnce).to.equal(true);
+      expect(callback.calledOnce).to.equal(true);
     });
   });
 });

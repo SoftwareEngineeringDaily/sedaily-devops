@@ -10,6 +10,6 @@ const router = express.Router();
 router.use(expressJwt({ secret: config.jwtSecret }));
 
 router.route('/')
-  .post(validate(paramValidation.event), eventCtrl.newEvent);
+  .post(validate(paramValidation.event), eventCtrl.validateEventType, eventCtrl.newEvent);
 
 export default router;

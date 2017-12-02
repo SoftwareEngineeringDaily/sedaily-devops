@@ -3,6 +3,8 @@ import httpStatus from 'http-status';
 import chai, { expect } from 'chai';
 import app from '../../index';
 import config from '../../config/config';
+import { ConsumerSlice } from './helpers/ConsumerSlice'
+const consumerSlice = new ConsumerSlice()
 
 chai.config.includeStack = true;
 
@@ -11,26 +13,62 @@ describe('## completedEpisode Events', () => {
 
   const invalidUserToken = 'invalid.token';
 
-  const validEvent = {
+  const event = {
   	clientId: '1234567',
     deviceType: 'iOS',
     location: 'Tacoma',
     eventTime: new Date().getTime(),
-    eventType: 'completedEpisode',
-    eventData: {
-    	episodeName: 'Serverless Event-Driven Architechture with Danilo Poccia'
-    }
+    eventType: 'completedEpisode'
   }
 
   it('sends a valid completedEpisode event', (done) => {
+    let validEvent = Object.assign({}, event); 
+    validEvent.eventData = {
+      episodeName: 'Serverless Event-Driven Architechture with Danilo Poccia'
+    }
+    let result;
     request(app)
       .post('/api/v1/event')
       .set('Authorization', `Bearer ${validUserToken}`)
       .send(validEvent)
       .expect(httpStatus.OK)
       .then((res) => {
-      	console.log(res.body)
+        result = res.body.result;
         expect(res.body).to.exist; //eslint-disable-line
+        return consumerSlice.getLastTopicSlice('completedEpisode')
+      })
+      .then((lastSlice) => {
+        expect(result).to.equal(lastSlice); //eslint-disable-line
+        done();
+      })
+      .catch(done);
+  });
+
+  it('fails when no episodeName is given', (done) => {
+    request(app)
+      .post('/api/v1/event')
+      .set('Authorization', `Bearer ${validUserToken}`)
+      .send(event)
+      .expect(httpStatus.INTERNAL_SERVER_ERROR)
+      .then((res) => {
+        //expect(res.body).to.exist; //eslint-disable-line
+        done();
+      })
+      .catch(done);
+  });
+
+  it('fails when empty episodeName is given', (done) => {
+    let invalidEvent = Object.assign({}, event); 
+    invalidEvent.eventData = {
+      episodeName: ''
+    }
+    request(app)
+      .post('/api/v1/event')
+      .set('Authorization', `Bearer ${validUserToken}`)
+      .send(invalidEvent)
+      .expect(httpStatus.INTERNAL_SERVER_ERROR)
+      .then((res) => {
+        //expect(res.body).to.exist; //eslint-disable-line
         done();
       })
       .catch(done);

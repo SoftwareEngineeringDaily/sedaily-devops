@@ -10,10 +10,12 @@ class RedisProducer extends Producer {
     this.client = client || new redis.RedisClient();
   }
 
-  sendMessage(topic, message, errorCallback) {
-    this.client.xadd([topic, '*', 'event', message], (error) => {
+  sendMessage(topic, message, callback) {
+    this.client.xadd([topic, '*', 'event', message], (error, ack) => {
       if (error) {
-        errorCallback(error);
+        callback(error, null);
+      } else {
+        callback(null, ack)
       }
     });
   }
