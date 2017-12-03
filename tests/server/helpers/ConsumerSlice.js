@@ -3,11 +3,10 @@ const consumer = new EventStream.EventStreamConsumer();
 
 class ConsumerSlice {
   
-  getLastTopicSlice(topic) {
+  getLastTopicEvent(topic) {
     return new Promise((resolve, reject) => {
       consumer.getSlice({ topic: topic }, (err, data) => {
-      	console.log(data)
-        resolve(data.topic)
+        resolve(data[data.length - 1][0])
       })
     })
   }

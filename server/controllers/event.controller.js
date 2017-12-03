@@ -18,12 +18,12 @@ function validateEventType(req, res, next) {
 
 function newEvent(req, res, next) {
   const { eventType } = req.body;
-  producer.sendMessage(eventType, JSON.stringify(new Date()), (error, ack) => {
+  producer.sendMessage(eventType, JSON.stringify(req.body), (error, eventId) => {
     if (error) {
       var err = new APIError(error); //eslint-disable-line
       next(err);
     } else {
-      res.json({ result: ack });
+      res.json({ eventId: eventId });
     }
   });
 }

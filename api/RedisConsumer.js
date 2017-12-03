@@ -53,7 +53,7 @@ class RedisConsumer extends Consumer {
       if (error) {
         callback(error, null);
       } else {
-        callback(null, parseResponse(response));
+        callback(null, response);
       }
     });
   }
