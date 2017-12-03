@@ -23,7 +23,7 @@ function newEvent(req, res, next) {
       var err = new APIError(error); //eslint-disable-line
       next(err);
     } else {
-      res.json({ eventId: eventId });
+      res.json({ eventId });
     }
   });
 }
