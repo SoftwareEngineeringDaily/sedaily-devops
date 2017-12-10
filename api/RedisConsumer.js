@@ -56,7 +56,6 @@ class RedisConsumer extends Consumer {
     const stopId = (args.stopId) ? args.stopId : '+';
     const argsList = [args.topic, startId, stopId];
     const count = args.count ? args.count : 0;
-    console.log('getslice args:', args)
     if (count) {
       argsList.push('COUNT');
       argsList.push(count);
