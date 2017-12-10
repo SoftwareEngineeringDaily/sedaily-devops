@@ -38,6 +38,8 @@
     "bluebird": "3.5.0",
     "body-parser": "1.17.2",
     "chai": "4.1.2",
+    "chalk": "^2.3.0",
+    "commander": "^2.12.2",
     "commitizen": "2.9.6",
     "compression": "1.7.0",
     "cookie-parser": "1.4.3",
