@@ -1,15 +1,19 @@
 import { MethodNotImplemented } from './APIError';
 
 class Consumer {
-  subscribe(args, callback, errorCallback) {
+  subscribe(args, callback) {
     throw MethodNotImplemented();
   }
 
-  unsubscribe(args, callback, errorCallback) {
+  unsubscribe(args, callback) {
     throw MethodNotImplemented();
   }
 
-  getSlice(args, callback, errorCallback) {
+  getSlice(args, callback) {
+    throw MethodNotImplemented();
+  }
+
+  disconnect() {
     throw MethodNotImplemented();
   }
 }

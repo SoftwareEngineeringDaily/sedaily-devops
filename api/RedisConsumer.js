@@ -70,6 +70,10 @@ class RedisConsumer extends Consumer {
       }
     });
   }
+
+  disconect() {
+    this.client.quit();
+  }
 }
 
 
