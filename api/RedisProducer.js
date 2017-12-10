@@ -19,6 +19,10 @@ class RedisProducer extends Producer {
       }
     });
   }
+
+  disconnect(){
+    this.client.quit();
+  }
 }
 
 export default { RedisProducer };
