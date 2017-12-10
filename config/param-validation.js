@@ -8,19 +8,18 @@ export default {
       location: Joi.string().required(),
       eventTime: Joi.date().timestamp('unix').required(),
       eventData: Joi.object(),
-      eventType: Joi.string().required().valid(
-        [
-          'login',
-          'logout',
-          'playEpisode',
-          'pauseEpisode',
-          'likeEpisode',
-          'completedEpisode',
-          'fastForwardEpisode',
-          'rewindEpisode',
-          'seekEpisode',
-          'searchEpisode'
-        ])
+      eventType: Joi.string().required().valid([
+        'login',
+        'logout',
+        'playEpisode',
+        'pauseEpisode',
+        'likeEpisode',
+        'completedEpisode',
+        'fastForwardEpisode',
+        'rewindEpisode',
+        'seekEpisode',
+        'searchEpisode'
+      ])
     }
   },
   login: Joi.object().required().keys({
