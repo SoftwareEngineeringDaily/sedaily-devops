@@ -1,18 +1,26 @@
 import redis from 'redis';
-
+import Joi from 'joi';
 
 import { Consumer } from './Consumer';
+
 
 redis.add_command('xrange');
 redis.add_command('xread');
 
 
-const parseResponse = response => ({
-  topic: response[0][0],
-  eventId: response[0][1][0][0],
-  eventData: response[0][1][0][1][1]
-});
+const parseResponse = response => response.map(event => ({
+  topic: event[0],
+  eventId: event[1][0][0],
+  eventData: event[1][0][1][1]
+}));
 
+
+const subscribeArgsSchema = Joi.object().keys({
+  topics: Joi.array().items(Joi.string()),
+  topicOffsets: Joi.array().length(Joi.ref('topics.length')).items(Joi.string()).optional(),
+  readOnce: Joi.boolean().optional()
+
+});
 
 class RedisConsumer extends Consumer {
   constructor(client) {
@@ -22,7 +30,12 @@ class RedisConsumer extends Consumer {
 
 
   subscribe(args, callback) {
-    const xreadParams = ['BLOCK', 0, 'STREAMS', ...args.topics, ...args.topicOffsets];
+    const result = Joi.validate(args, subscribeArgsSchema);
+    if (result.error) {
+      throw result.error;
+    }
+    const topicOffsets = args.topicOffsets || args.topics.map(_ => '$');
+    const xreadParams = ['BLOCK', 0, 'STREAMS', ...args.topics, ...topicOffsets];
 
     const onMessage = (error, response) => {
       if (error) {

@@ -34,11 +34,11 @@ describe('RedisConsumer', () => {
 
       expect(callback.calledWith(
         null,
-        {
+        [{
           topic: 'sedaily-event-stream1',
           eventId: ['123244'],
           eventData: ['data'],
-        }
+        }]
       )).to.equal(true);
     });
 
@@ -67,11 +67,11 @@ describe('RedisConsumer', () => {
 
       expect(callback.calledWith(
         null,
-        {
+        [{
           topic: 'sedaily-event-stream1',
           eventId: ['123244'],
           eventData: ['data'],
-        }
+        }]
       )).to.equal(true);
     });
 
