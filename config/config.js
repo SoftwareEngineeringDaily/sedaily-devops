@@ -12,10 +12,10 @@ const envVarsSchema = Joi.object({
     .default(3000),
   JWT_SECRET: Joi.string().required()
     .description('JWT Secret required to sign'),
-  KAFKA_HOST: Joi.string().required()
-    .description('Kafka host url'),
-  KAFKA_PORT: Joi.number()
-    .default(9092)
+  REDIS_HOST: Joi.string().required()
+    .description('Host URL for Redis server'),
+  REDIS_PORT: Joi.number()
+    .default(6379)
 }).unknown()
   .required();
 
@@ -28,9 +28,9 @@ const config = {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
   jwtSecret: envVars.JWT_SECRET,
-  kafka: {
-    host: envVars.KAFKA_HOST,
-    port: envVars.KAFKA_PORT
+  redis: {
+    host: envVars.REDIS_HOST,
+    port: envVars.REDIS_PORT
   }
 };
 

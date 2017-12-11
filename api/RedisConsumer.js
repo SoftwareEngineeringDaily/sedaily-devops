@@ -1,8 +1,7 @@
 import redis from 'redis';
 import Joi from 'joi';
-
+import config from '../config/config';
 import { Consumer } from './Consumer';
-
 
 redis.add_command('xrange');
 redis.add_command('xread');
@@ -29,7 +28,10 @@ const subscribeArgsSchema = Joi.object().keys({
 class RedisConsumer extends Consumer {
   constructor(client) {
     super();
-    this.client = client || new redis.RedisClient();
+    this.client = client || new redis.RedisClient({
+      host: config.redis.host,
+      port: config.redis.port
+    });
   }
 
 
