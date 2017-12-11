@@ -14,6 +14,10 @@ const parseResponse = response => response.map(event => ({
   eventData: event[1][0][1][1]
 }));
 
+const parseSliceResponse = response => response.map(event => ({
+  eventId: event[0],
+  eventData: event[1][1]
+}));
 
 const subscribeArgsSchema = Joi.object().keys({
   topics: Joi.array().items(Joi.string()),
@@ -66,7 +70,7 @@ class RedisConsumer extends Consumer {
       if (error) {
         callback(error, null);
       } else {
-        callback(null, parseResponse(response));
+        callback(null, parseSliceResponse(response));
       }
     });
   }
