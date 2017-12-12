@@ -9,7 +9,7 @@ const consumerSlice = new ConsumerSlice();
 
 chai.config.includeStack = true;
 
-xdescribe('## completedEpisode Events', () => {
+describe('## completedEpisode Events', () => {
   const validUserToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfX3YiOjAsInVzZXJuYW1lIjoiYW5kcmV3IiwicGFzc3dvcmQiOiIkMmEkMDgkaC5WVE11V3F6MlhwMEhjenlhcURLdXducnJiMVl6OS9MWFR5L3NYUGJYSUZ3bkYxMjBGRUsiLCJfaWQiOiI1YTA4OTA1YzYwOWU1NmM2MjRjYjlhNmUiLCJjcmVhdGVkQXQiOiIyMDE3LTExLTEyVDE4OjE4OjA0Ljg5NFoiLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTUxMDUxMDY4NSwiZXhwIjoxNjU0NTEwNjg1fQ.VikuupiS5qwXU4Tix_7C2UbSLFHPk4syL6cfcjkQ77A';
 
   const invalidUserToken = 'invalid.token';
