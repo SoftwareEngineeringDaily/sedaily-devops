@@ -6,7 +6,7 @@ class ConsumerSlice {
   getLastTopicEvent(topic) {
     return new Promise((resolve, reject) => {
       consumer.getSlice({ topic: topic }, (err, data) => {
-        resolve(data[data.length - 1][0])
+        resolve(data[data.length - 1].eventId)
       })
     })
   }

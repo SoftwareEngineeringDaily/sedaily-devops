@@ -10,10 +10,26 @@ describe('RedisConsumer', () => {
     readOnce: true,
   };
 
+  const sliceArgs = {
+    topic: 'login'
+  };
+
 
   const getRedisClientStub = (testFor, testMethod) => {
     const errorMessage = (testFor === 'error') ? 'Error retrieving data' : null;
-    const responseData = (testFor === 'validResponse') ? [['sedaily-event-stream1', [[['123244'], [[], ['data']]]]]] : null;
+    
+    let responseData;
+    switch (testFor) {
+      case 'validResponse':
+        responseData = [['sedaily-event-stream1', [[['123244'], [[], ['data']]]]]];
+        break;
+      case 'validSliceResponse':
+        responseData = [ [ '1512957115362-0',[ 'event','data' ] ] ];
+        break;
+      default:
+        responseData = null;
+        break;
+    }
 
     return {
       [testMethod]: (params, callback) => {
@@ -57,20 +73,19 @@ describe('RedisConsumer', () => {
 
   describe('# getSlice', () => {
     it('Invokes client callback on retrieving slice and passes slice content to second arg of callback function', () => {
-      const consumer = new RedisConsumer(getRedisClientStub('validResponse', 'xrange'));
+      const consumer = new RedisConsumer(getRedisClientStub('validSliceResponse', 'xrange'));
       const callback = sinon.spy();
 
       consumer.getSlice(
-        subscriptionArgs,
+        sliceArgs,
         callback
       );
 
       expect(callback.calledWith(
         null,
         [{
-          topic: 'sedaily-event-stream1',
-          eventId: ['123244'],
-          eventData: ['data'],
+          eventId: '1512957115362-0',
+          eventData: 'data'
         }]
       )).to.equal(true);
     });
@@ -80,7 +95,7 @@ describe('RedisConsumer', () => {
       const callback = sinon.spy();
 
       consumer.getSlice(
-        subscriptionArgs,
+        sliceArgs,
         callback
       );
 

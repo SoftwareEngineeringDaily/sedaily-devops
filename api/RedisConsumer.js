@@ -1,8 +1,7 @@
 import redis from 'redis';
 import Joi from 'joi';
-
+import config from '../config/config';
 import { Consumer } from './Consumer';
-
 
 redis.add_command('xrange');
 redis.add_command('xread');
@@ -14,6 +13,10 @@ const parseResponse = response => response.map(event => ({
   eventData: event[1][0][1][1]
 }));
 
+const parseSliceResponse = response => response.map(event => ({
+  eventId: event[0],
+  eventData: event[1][1]
+}));
 
 const subscribeArgsSchema = Joi.object().keys({
   topics: Joi.array().items(Joi.string()),
@@ -25,7 +28,10 @@ const subscribeArgsSchema = Joi.object().keys({
 class RedisConsumer extends Consumer {
   constructor(client) {
     super();
-    this.client = client || new redis.RedisClient();
+    this.client = client || new redis.RedisClient({
+      host: config.redis.host,
+      port: config.redis.port
+    });
   }
 
 
@@ -66,7 +72,7 @@ class RedisConsumer extends Consumer {
       if (error) {
         callback(error, null);
       } else {
-        callback(null, parseResponse(response));
+        callback(null, parseSliceResponse(response));
       }
     });
   }

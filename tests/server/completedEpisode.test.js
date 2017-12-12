@@ -52,7 +52,7 @@ xdescribe('## completedEpisode Events', () => {
       .send(event)
       .expect(httpStatus.INTERNAL_SERVER_ERROR)
       .then((res) => {
-        // expect(res.body).to.exist; //eslint-disable-line
+        expect(res.body).to.exist; //eslint-disable-line
         done();
       })
       .catch(done);
@@ -69,7 +69,7 @@ xdescribe('## completedEpisode Events', () => {
       .send(invalidEvent)
       .expect(httpStatus.INTERNAL_SERVER_ERROR)
       .then((res) => {
-        // expect(res.body).to.exist; //eslint-disable-line
+        expect(res.body).to.exist; //eslint-disable-line
         done();
       })
       .catch(done);
