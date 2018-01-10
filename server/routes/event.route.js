@@ -12,4 +12,7 @@ router.use(expressJwt({ secret: config.jwtSecret }));
 router.route('/')
   .post(validate(paramValidation.event), eventCtrl.validateEventType, eventCtrl.newEvent);
 
+router.route('/')
+  .get(eventCtrl.queryEventType);
+
 export default router;
