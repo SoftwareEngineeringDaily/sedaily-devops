@@ -4,6 +4,11 @@ services:
     build: ./redis-docker
     ports:
       - "6379"
+  influxdb:
+    container_name: influxdb
+    image: influxdb
+    ports:
+      - "8086"
   event-gateway:
     build:
       context: .

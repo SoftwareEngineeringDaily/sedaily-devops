@@ -1,6 +1,11 @@
 // config should be imported before importing any other file
 import config from './config/config';
 import app from './config/express';
+import InfluxConsumer from './api/InfluxConsumer';
+
+const influxConsumer = new InfluxConsumer();
+
+influxConsumer.writeAllEvents('login');
 
 // module.parent check is required to support mocha watch
 // src: https://github.com/mochajs/mocha/issues/1912
