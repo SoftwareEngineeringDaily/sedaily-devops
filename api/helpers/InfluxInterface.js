@@ -1,6 +1,6 @@
 import { InfluxDB, FieldType, escape } from 'influx';
 
-class InfluxIF {
+class InfluxInterface {
 
   constructor() {
     
@@ -31,7 +31,7 @@ class InfluxIF {
   write(topic, eventData, callback) {
     this.influx.writeMeasurement('events', [
     {
-      tags: { eventType: eventData.eventType},
+      tags: { eventType: topic},
       fields: { eventData: JSON.stringify(eventData) }
     }
     ])
@@ -49,4 +49,4 @@ class InfluxIF {
     
 }
 
-export default InfluxIF;
+export default InfluxInterface;
