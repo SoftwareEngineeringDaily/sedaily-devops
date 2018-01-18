@@ -1,14 +1,14 @@
 import Joi from 'joi';
-import EventStream from '../../api/EventStream';
 import paramValidation from '../../config/param-validation';
 import APIError from '../helpers/APIError';
+import InluxInterface from '../helpers/InfluxInterface';
 
-const producer = new EventStream.EventStreamProducer();
+const influxInterface = new InluxInterface();
 
 function validateEventType(req, res, next) {
   Joi.validate(req.body.eventData, paramValidation[req.body.eventType], (error) => {
     if (error) {
-      var err = new APIError(error); //eslint-disable-line
+      const err = new APIError(error); //eslint-disable-line
       next(err);
     } else {
       next();
@@ -18,12 +18,12 @@ function validateEventType(req, res, next) {
 
 function newEvent(req, res, next) {
   const { eventType } = req.body;
-  producer.sendMessage(eventType, JSON.stringify(req.body), (error, eventId) => {
+  influxInterface.write(eventType, req.body, (error) => {
     if (error) {
-      var err = new APIError(error); //eslint-disable-line
+      const err = new APIError(error); //eslint-disable-line
       next(err);
     } else {
-      res.json({ eventId });
+      res.json({ result: 'success' });
     }
   });
 }

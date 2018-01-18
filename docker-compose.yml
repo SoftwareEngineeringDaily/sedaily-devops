@@ -1,9 +1,14 @@
 version: '2'
 services:
-  redis-stream:
-    build: ./redis-docker
+  #redis-stream:
+  #  build: ./redis-docker
+  #  ports:
+  #    - "6379"
+  influxdb:
+    container_name: influxdb
+    image: influxdb
     ports:
-      - "6379"
+      - "8086"
   event-gateway:
     build:
       context: .
@@ -29,5 +34,5 @@ services:
     # Link to containers in another service.
     # Links also express dependency between services in the same way as depends_on,
     # so they determine the order of service startup.
-    links:
-      - redis-stream
+    #links:
+    #  - redis-stream

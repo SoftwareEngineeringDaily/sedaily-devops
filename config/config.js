@@ -15,7 +15,11 @@ const envVarsSchema = Joi.object({
   REDIS_HOST: Joi.string().required()
     .description('Host URL for Redis server'),
   REDIS_PORT: Joi.number()
-    .default(6379)
+    .default(6379),
+  INFLUXDB_HOST: Joi.string().required()
+    .description('Host URL for InfluxDB server'),
+  INFLUXDB_PORT: Joi.number()
+    .default(8086)
 }).unknown()
   .required();
 
@@ -31,6 +35,10 @@ const config = {
   redis: {
     host: envVars.REDIS_HOST,
     port: envVars.REDIS_PORT
+  },
+  influx: {
+    host: envVars.INFLUXDB_HOST,
+    port: envVars.INFLUXDB_PORT
   }
 };
 
