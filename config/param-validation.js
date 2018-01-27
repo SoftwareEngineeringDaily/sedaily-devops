@@ -5,10 +5,11 @@ export default {
     body: {
       clientId: Joi.string().required(),
       deviceType: Joi.string().required().valid(['iOS', 'Android', 'Browser']),
-      location: Joi.string().required(),
+      //location: Joi.string().required(),
       eventTime: Joi.date().timestamp('unix').required(),
       eventData: Joi.object(),
       eventType: Joi.string().required().valid([
+        'register',
         'login',
         'logout',
         'playEpisode',
@@ -22,6 +23,7 @@ export default {
       ])
     }
   },
+  register: Joi.object().required().keys(),
   login: Joi.object().required().keys({
     userId: Joi.string().required()
   }),
