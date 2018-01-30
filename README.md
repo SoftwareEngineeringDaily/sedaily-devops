@@ -16,7 +16,8 @@ $ cd sedaily-event-stream
   - `cp .env.local_example .env`
   - `npm install` or `yarn install`
   - `npm start` or `yarn start`
-  - check package.json for other builds
+  - 
+  package.json for other builds
 
 ### Set up (Docker)
   - `cp .env.docker_example .env`
@@ -28,7 +29,7 @@ $ cd sedaily-event-stream
 The current state of the SEDaily event stream is analytics focused. The event stream backend relies on Redis Streams, which is only currently available in the [`unstable`](https://github.com/antirez/redis/tree/unstable) branch. Until it is stable, the SEDaily event stream will only directly input events into InfluxDB. Data analytics can be run against queries on the InfluxDB events database.
 
 ## Contributing
-We use the develop branch to perform work in. Fork the project and clone it, create a branch off of develop and perform your changes. Then  submit a pull request to merge your branch into the develop branch here. We have an active Slack community that you can reach out to for more information or just to chat with anyone. Check out the [<img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png" alt="Slack Channel" width="20px"/> SED app development](https://softwaredaily.slack.com/app_redirect?channel=sed_app_development) slack channel.
+We use the develop branch to perform work in. Fork the project and clone it, create a branch off of develop and perform your changes. Then  submit a pull request to merge your branch into the develop branch here. We have an active Slack community that you can reach out to for more information or just to chat with anyone. Check out the [<img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png" alt="Slack Channel" width="20px"/> SED app development](https://softwaredaily.slack.com/app_redirect?channel=sed_app_development) slack channel. Also see the [Open Source Guide](https://softwareengineeringdaily.github.io/).
 
 ## Example Events
 
