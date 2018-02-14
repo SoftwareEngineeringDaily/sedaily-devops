@@ -1,10 +1,5 @@
 version: '2'
 services:
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    ports:
-      - 4000:3000
   influxdb:
     container_name: influxdb
     image: influxdb
@@ -35,9 +30,3 @@ services:
     # Set environment variables from this file
     env_file:
       - .env
-
-    # Link to containers in another service.
-    # Links also express dependency between services in the same way as depends_on,
-    # so they determine the order of service startup.
-    #links:
-    #  - redis-stream
