@@ -19,7 +19,11 @@ const envVarsSchema = Joi.object({
   INFLUXDB_HOST: Joi.string().required()
     .description('Host URL for InfluxDB server'),
   INFLUXDB_PORT: Joi.number()
-    .default(8086)
+    .default(8086),
+  INFLUXDB_USER: Joi.string().required()
+    .description('Username for InfluxDB server'),
+  INFLUXDB_PASS: Joi.string().required()
+    .description('Password for InfluxDB server')
 }).unknown()
   .required();
 
@@ -38,7 +42,9 @@ const config = {
   },
   influx: {
     host: envVars.INFLUXDB_HOST,
-    port: envVars.INFLUXDB_PORT
+    port: envVars.INFLUXDB_PORT,
+    username: envVars.INFLUXDB_USER,
+    password: envVars.INFLUXDB_PASS
   }
 };
 

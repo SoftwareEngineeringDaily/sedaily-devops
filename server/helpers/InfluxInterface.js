@@ -8,6 +8,8 @@ class InfluxInterface {
     this.influx = new InfluxDB({
       host: config.influx.host,
       database: databaseName,
+      username: config.influx.username,
+      password: config.influx.password,
       schema: [
         {
           measurement: 'events',

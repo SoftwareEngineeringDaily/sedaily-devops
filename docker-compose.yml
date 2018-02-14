@@ -1,14 +1,14 @@
 version: '2'
 services:
-  #redis-stream:
-  #  build: ./redis-docker
-  #  ports:
-  #    - "6379"
   influxdb:
     container_name: influxdb
     image: influxdb
     ports:
-      - "8086"
+      - "8086:8086"
+    environment:
+     - INFLUXDB_HTTP_AUTH_ENABLED=true
+     - INFLUXDB_ADMIN_USER=admin
+     - INFLUXDB_ADMIN_PASSWORD=admin
   event-gateway:
     build:
       context: .
@@ -30,9 +30,3 @@ services:
     # Set environment variables from this file
     env_file:
       - .env
-
-    # Link to containers in another service.
-    # Links also express dependency between services in the same way as depends_on,
-    # so they determine the order of service startup.
-    #links:
-    #  - redis-stream
