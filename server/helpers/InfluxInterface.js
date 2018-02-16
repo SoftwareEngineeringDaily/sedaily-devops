@@ -1,26 +1,14 @@
-import { InfluxDB, FieldType, escape } from 'influx';
+import { InfluxDB } from 'influx';
 import config from '../../config/config';
 
-const databaseName = 'eventsDb';
-
 class InfluxInterface {
-  constructor() {
+  constructor(databaseName, schema) {
     this.influx = new InfluxDB({
       host: config.influx.host,
       database: databaseName,
       username: config.influx.username,
       password: config.influx.password,
-      schema: [
-        {
-          measurement: 'events',
-          fields: {
-            eventData: FieldType.STRING
-          },
-          tags: [
-            'eventType'
-          ]
-        }
-      ]
+      schema
     });
 
     this.influx.getDatabaseNames()
@@ -29,25 +17,6 @@ class InfluxInterface {
           this.influx.createDatabase(databaseName);
         }
       });
-  }
-
-  write(topic, eventData, callback) {
-    this.influx.writeMeasurement('events', [
-      {
-        tags: { eventType: eventData.eventType },
-        fields: { eventData: JSON.stringify(eventData) }
-      }
-    ])
-      .then(() => {
-        callback(null);
-      })
-      .catch((err) => {
-        callback(`Error saving data to InfluxDB! ${err}`);
-      });
-  }
-
-  read(eventType) {
-    return this.influx.query(`select * from events where eventType = ${escape.stringLit(eventType)}`);
   }
 }
 

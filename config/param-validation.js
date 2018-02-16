@@ -5,11 +5,9 @@ export default {
     body: {
       clientId: Joi.string().required(),
       deviceType: Joi.string().required().valid(['iOS', 'Android', 'Browser', 'API']),
-      //location: Joi.string().required(),
       eventTime: Joi.date().timestamp('unix').required(),
       eventData: Joi.object(),
       eventType: Joi.string().required().valid([
-        'apiError',
         'register',
         'login',
         'logout',
@@ -24,10 +22,15 @@ export default {
       ])
     }
   },
+  error: {
+    body: {
+      clientId: Joi.string().required(),
+      deviceType: Joi.string().required().valid(['iOS', 'Android', 'Browser', 'API']),
+      errorTime: Joi.date().timestamp('unix').required(),
+      errorData: Joi.object(),
+    }
+  },
   register: Joi.object().required().keys(),
-  apiError: Joi.object().required().keys({
-    message: Joi.string().required()
-  }),
   login: Joi.object().required().keys({
     userId: Joi.string().required()
   }),
