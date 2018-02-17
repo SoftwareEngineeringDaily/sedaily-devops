@@ -4,8 +4,7 @@ export default {
   event: {
     body: {
       clientId: Joi.string().required(),
-      deviceType: Joi.string().required().valid(['iOS', 'Android', 'Browser']),
-      //location: Joi.string().required(),
+      deviceType: Joi.string().required().valid(['iOS', 'Android', 'Browser', 'API']),
       eventTime: Joi.date().timestamp('unix').required(),
       eventData: Joi.object(),
       eventType: Joi.string().required().valid([
@@ -21,6 +20,14 @@ export default {
         'seekEpisode',
         'searchEpisode'
       ])
+    }
+  },
+  error: {
+    body: {
+      clientId: Joi.string().required(),
+      deviceType: Joi.string().required().valid(['iOS', 'Android', 'Browser', 'API']),
+      errorTime: Joi.date().timestamp('unix').required(),
+      errorData: Joi.object(),
     }
   },
   register: Joi.object().required().keys(),

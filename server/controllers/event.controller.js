@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import paramValidation from '../../config/param-validation';
 import APIError from '../helpers/APIError';
-import InluxInterface from '../helpers/InfluxInterface';
+import InluxInterface from '../helpers/InfluxEventInterface';
 
 const influxInterface = new InluxInterface();
 
