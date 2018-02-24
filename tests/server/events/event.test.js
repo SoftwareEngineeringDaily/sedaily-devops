@@ -49,7 +49,7 @@ describe('## Basic Event APIs', () => {
         .expect(httpStatus.BAD_REQUEST)
         .then((res) => {
           expect(res.body).to.exist; //eslint-disable-line
-          expect(res.body.message).to.equal('"clientId" is required and "deviceType" is required and "eventTime" is required and "eventType" is required'); //eslint-disable-line
+          expect(res.body.message).to.equal('"clientId" is required and "deviceType" is required and "eventTime" is required and "eventData" is required and "eventType" is required'); //eslint-disable-line
           done();
         })
         .catch(done);
