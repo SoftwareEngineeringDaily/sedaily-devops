@@ -31,12 +31,8 @@ export default {
     }
   },
   register: Joi.object().required().keys(),
-  login: Joi.object().required().keys({
-    userId: Joi.string().required()
-  }),
-  logout: Joi.object().required().keys({
-    userId: Joi.string().required()
-  }),
+  login: Joi.object().required().keys(),
+  logout: Joi.object().required().keys(),
   playEpisode: Joi.object().required().keys({
     episodeName: Joi.string().required(),
     minutesPlayed: Joi.number().required(),

@@ -16,7 +16,6 @@ describe('## Basic Event APIs', () => {
         eventTime: new Date().getTime(),
         eventType: 'login',
         eventData: {
-          userId: 'andrew'
         }
       };
       request(app)
@@ -97,7 +96,7 @@ describe('## Basic Event APIs', () => {
         .catch(done);
     });
 
-    xit('errors when no eventData sent', (done) => {
+    it('errors when no eventData sent', (done) => {
       const event = {
         clientId: '45426562',
         deviceType: 'API',
