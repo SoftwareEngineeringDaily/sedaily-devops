@@ -8,6 +8,12 @@ cache:
   - node_modules
 git:
   depth: 3
+before_script:
+ - mkdir influxdb_install
+ - wget https://dl.influxdata.com/influxdb/releases/influxdb_1.4.3_amd64.deb
+ - dpkg -x influxdb*.deb influxdb_install
+ - ./influxdb_install/usr/bin/influxd &
+ 
 script:
   # - yarn test:check-coverage
   - npm run lint
