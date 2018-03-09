@@ -10,13 +10,10 @@
     "npm": "5.5.1"
   },
   "scripts": {
-    "launch": "npm run build && node dist/index.js",
     "start": "gulp serve",
-    "start:debug": "cross-env DEBUG=software-engineering-daily-api:* npm run start",
     "build": "gulp",
     "lint": "esw *.js server config --color",
     "lint:watch": "npm run lint -- --watch",
-    "precommit-removedfornow": "npm run lint && npm run test",
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --ui bdd --reporter spec --colors --compilers js:babel-core/register tests/server --recursive",
     "test:watch": "npm run test -- --watch",
     "test:coverage": "cross-env NODE_ENV=test ./node_modules/.bin/istanbul cover _mocha -- --ui bdd --reporter spec --colors --compilers js:babel-core/register tests --recursive",

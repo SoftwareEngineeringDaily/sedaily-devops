@@ -1,9 +1,8 @@
 language: node_js
 node_js:
-  - "6.11"
+  - "6.11.1"
 services:
   - mongodb
-  - redis-server
 cache:
   directories:
   - node_modules
@@ -11,6 +10,7 @@ git:
   depth: 3
 script:
   # - yarn test:check-coverage
+  - npm run lint
   - npm run test
 after_script:
   # - yarn report-coverage
