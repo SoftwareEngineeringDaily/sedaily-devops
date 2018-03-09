@@ -16,8 +16,7 @@ $ cd sedaily-event-stream
   - `cp .env.local_example .env`
   - `npm install` or `yarn install`
   - `npm start` or `yarn start`
-  - 
-  package.json for other builds
+  - see package.json for other builds
 
 ### Set up (Docker)
   - `cp .env.docker_example .env`
@@ -33,64 +32,4 @@ We use the develop branch to perform work in. Fork the project and clone it, cre
 
 ## Example Events
 
-Here is a list of example events that can be sent to the event stream. See the [validation schema](https://github.com/SoftwareEngineeringDaily/sedaily-event-stream/blob/master/config/param-validation.js) for a full list of available events.
-
-```
-[
-  {
-    "clientId": "941C523D1576",
-    "deviceType": "Browser",
-    "location": "Paris",
-    "eventTime": 1516334544024,
-    "eventType": "login",
-    "eventData": {
-      "userId": "CE2EEC6DA9A4"
-    }
-  },
-  {
-    "clientId": "941C523D1576",
-    "deviceType": "Browser",
-    "location": "Paris",
-    "eventTime": 1516334544024,
-    "eventType": "logout",
-    "eventData": {
-      "userId": "272FF39B2DE3"
-    }
-  },
-  {
-    "clientId": "941C523D1576",
-    "deviceType": "Browser",
-    "location": "Paris",
-    "eventTime": 1516334544024,
-    "eventType": "likeEpisode",
-    "eventData": {
-      "episodeName": "Hacker Noon with David Smooke",
-      "minutesPlayed": 55,
-      "minutesRemaining": 21
-    }
-  },
-  {
-    "clientId": "941C523D1576",
-    "deviceType": "Browser",
-    "location": "Paris",
-    "eventTime": 1516334544024,
-    "eventType": "playEpisode",
-    "eventData": {
-      "episodeName": "Hacker Noon with David Smooke",
-      "minutesPlayed": 5,
-      "minutesRemaining": 24
-    }
-  },
-  {
-    "clientId": "941C523D1576",
-    "deviceType": "Browser",
-    "location": "Paris",
-    "eventTime": 1516334544024,
-    "eventType": "completedEpisode",
-    "eventData": {
-      "episodeName": "React Components with Max Stoiber"
-    }
-  }
-]
-```
-
+We're currently building better client documentation
