@@ -1,5 +1,5 @@
 {
-  "name": "sedaily-event",
+  "name": "sedaily-event-stream",
   "version": "1.0.0",
   "description": "Gateway service for accepting SEDaily events and publishing to Kafka",
   "author": "Andrew Lloyd <andrew85.lloyd@gmail.com>",
@@ -10,13 +10,10 @@
     "npm": "5.5.1"
   },
   "scripts": {
-    "launch": "npm run build && node dist/index.js",
     "start": "gulp serve",
-    "start:debug": "cross-env DEBUG=software-engineering-daily-api:* npm run start",
     "build": "gulp",
     "lint": "esw *.js server config --color",
     "lint:watch": "npm run lint -- --watch",
-    "precommit-removedfornow": "npm run lint && npm run test",
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --ui bdd --reporter spec --colors --compilers js:babel-core/register tests/server --recursive",
     "test:watch": "npm run test -- --watch",
     "test:coverage": "cross-env NODE_ENV=test ./node_modules/.bin/istanbul cover _mocha -- --ui bdd --reporter spec --colors --compilers js:babel-core/register tests --recursive",
@@ -83,6 +80,7 @@
     "raccoon": "0.2.8",
     "redis": "^2.8.0",
     "run-sequence": "2.1.0",
+    "sinon": "^4.1.2",
     "supertest": "3.0.0",
     "supertest-as-promised": "4.0.2",
     "swagger-jsdoc": "^1.9.7",
@@ -106,7 +104,6 @@
   },
   "devDependencies": {
     "minimist": "^1.2.0",
-    "sinon": "^4.1.2",
     "swagger-node-express": "^2.1.3"
   }
 }

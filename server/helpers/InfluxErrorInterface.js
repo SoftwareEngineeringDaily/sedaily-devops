@@ -26,7 +26,7 @@ export default class InfluxErrorInterface extends InfluxInterface {
         callback(null);
       })
       .catch((err) => {
-        callback(`Error saving data to InfluxDB! ${err}`);
+        callback(`Error saving data to InfluxDB! ${err.message}`);
       });
   }
 

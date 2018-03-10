@@ -1,16 +1,19 @@
 language: node_js
 node_js:
-  - "6.11"
-services:
-  - mongodb
-  - redis-server
+  - "6.11.1"
 cache:
   directories:
   - node_modules
 git:
   depth: 3
+before_script:
+ - mkdir influxdb_install
+ - wget https://dl.influxdata.com/influxdb/releases/influxdb_1.4.3_amd64.deb
+ - dpkg -x influxdb*.deb influxdb_install
+ - ./influxdb_install/usr/bin/influxd &
+ 
 script:
-  # - yarn test:check-coverage
-  - npm run test
+  - npm run lint
+  - npm run test:check-coverage
 after_script:
-  # - yarn report-coverage
+  # - npm run report-coverage

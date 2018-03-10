@@ -4,6 +4,8 @@
 
 The real time event processing infrastructure gateway server for the Software Engineering Daily [Android](https://github.com/SoftwareEngineeringDaily/SEDaily-Android), [iOS](https://github.com/SoftwareEngineeringDaily/se-daily-iOS), and [web front end](https://github.com/SoftwareEngineeringDaily/sedaily-front-end). The SEDaily event stream is responsible for authenticating connecting clients and validating event payload schemas before putting the event on the SED event bus. Interested clients can subscribe to events on the stream.
 
+<a href="https://travis-ci.org/andrewmarklloyd/sedaily-event-stream"><img src="https://travis-ci.org/andrewmarklloyd/sedaily-event-stream.svg?branch=develop"></img></a>
+
 ## Getting Started
 ```sh
 $ git clone https://github.com/SoftwareEngineeringDaily/sedaily-event-stream.git
@@ -16,8 +18,7 @@ $ cd sedaily-event-stream
   - `cp .env.local_example .env`
   - `npm install` or `yarn install`
   - `npm start` or `yarn start`
-  - 
-  package.json for other builds
+  - see package.json for other builds
 
 ### Set up (Docker)
   - `cp .env.docker_example .env`
@@ -31,66 +32,39 @@ The current state of the SEDaily event stream is analytics focused. The event st
 ## Contributing
 We use the develop branch to perform work in. Fork the project and clone it, create a branch off of develop and perform your changes. Then  submit a pull request to merge your branch into the develop branch here. We have an active Slack community that you can reach out to for more information or just to chat with anyone. Check out the [<img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png" alt="Slack Channel" width="20px"/> SED app development](https://softwaredaily.slack.com/app_redirect?channel=sed_app_development) slack channel. Also see the [Open Source Guide](https://softwareengineeringdaily.github.io/).
 
-## Example Events
-
-Here is a list of example events that can be sent to the event stream. See the [validation schema](https://github.com/SoftwareEngineeringDaily/sedaily-event-stream/blob/master/config/param-validation.js) for a full list of available events.
+## Examples
+For clients wanting to post events to the API, there should be a base URL variable declared in the config already. Send a post command to the event stream API for the desired event. For the full list of possible events see the [parameter validation schema](https://github.com/SoftwareEngineeringDaily/sedaily-event-stream/blob/develop/config/param-validation.js).
 
 ```
-[
-  {
-    "clientId": "941C523D1576",
-    "deviceType": "Browser",
-    "location": "Paris",
-    "eventTime": 1516334544024,
-    "eventType": "login",
-    "eventData": {
-      "userId": "CE2EEC6DA9A4"
-    }
-  },
-  {
-    "clientId": "941C523D1576",
-    "deviceType": "Browser",
-    "location": "Paris",
-    "eventTime": 1516334544024,
-    "eventType": "logout",
-    "eventData": {
-      "userId": "272FF39B2DE3"
-    }
-  },
-  {
-    "clientId": "941C523D1576",
-    "deviceType": "Browser",
-    "location": "Paris",
-    "eventTime": 1516334544024,
-    "eventType": "likeEpisode",
-    "eventData": {
-      "episodeName": "Hacker Noon with David Smooke",
-      "minutesPlayed": 55,
-      "minutesRemaining": 21
-    }
-  },
-  {
-    "clientId": "941C523D1576",
-    "deviceType": "Browser",
-    "location": "Paris",
-    "eventTime": 1516334544024,
-    "eventType": "playEpisode",
-    "eventData": {
-      "episodeName": "Hacker Noon with David Smooke",
-      "minutesPlayed": 5,
-      "minutesRemaining": 24
-    }
-  },
-  {
-    "clientId": "941C523D1576",
-    "deviceType": "Browser",
-    "location": "Paris",
-    "eventTime": 1516334544024,
-    "eventType": "completedEpisode",
-    "eventData": {
-      "episodeName": "React Components with Max Stoiber"
-    }
-  }
-]
+/*
+* Sending a login event to the event stream
+*/
+loginEvent: (username) => {
+  return axios.post(`${EVENTS_API_BASE_URL}`, {
+    clientId: username,
+    deviceType: 'Browser',
+    eventTime: new Date().getTime(),
+    eventType: 'login',
+    eventData: {}
+  })
+}
 ```
 
+```
+/*
+* Sending a play episode event when the user presses the play button
+*/
+playEpisodeEvent: (username, playEvent) => {
+  return axios.post(`${EVENTS_API_BASE_URL}`, {
+    clientId: username,
+    deviceType: 'Browser',
+    eventTime: new Date().getTime(),
+    eventType: 'playEpisode',
+    eventData: {
+      episodeName: playEvent.episodeName,
+      minutesPlayed: playEvent.minutesPlayed,
+      minutesRemaining: playEvent.minutesRemaining
+    }
+  })
+}
+```

@@ -1,6 +1,6 @@
 verbose: false
 instrumentation:
-  excludes: ['dist/**', 'coverage/**', 'gulpfile.babel.js']
+  excludes: ['dist/**', 'coverage/**', 'gulpfile.babel.js', 'api/**', 'cli/**']
   include-all-sources: true
 reporting:
     print: summary
