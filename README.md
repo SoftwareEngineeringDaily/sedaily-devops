@@ -33,7 +33,7 @@ The current state of the SEDaily event stream is analytics focused. The event st
 We use the develop branch to perform work in. Fork the project and clone it, create a branch off of develop and perform your changes. Then  submit a pull request to merge your branch into the develop branch here. We have an active Slack community that you can reach out to for more information or just to chat with anyone. Check out the [<img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png" alt="Slack Channel" width="20px"/> SED app development](https://softwaredaily.slack.com/app_redirect?channel=sed_app_development) slack channel. Also see the [Open Source Guide](https://softwareengineeringdaily.github.io/).
 
 ## Examples
-For clients wanting to post events to the API, there should be a base URL variable declared in the config already. Send a post command to the event stream API
+For clients wanting to post events to the API, there should be a base URL variable declared in the config already. Send a post command to the event stream API for the desired event. For the full list of possible events see the [parameter validation schema](https://github.com/SoftwareEngineeringDaily/sedaily-event-stream/blob/develop/config/param-validation.js).
 
 ```
 /*
