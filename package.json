@@ -80,6 +80,7 @@
     "raccoon": "0.2.8",
     "redis": "^2.8.0",
     "run-sequence": "2.1.0",
+    "sinon": "^4.1.2",
     "supertest": "3.0.0",
     "supertest-as-promised": "4.0.2",
     "swagger-jsdoc": "^1.9.7",
@@ -103,7 +104,6 @@
   },
   "devDependencies": {
     "minimist": "^1.2.0",
-    "sinon": "^4.1.2",
     "swagger-node-express": "^2.1.3"
   }
 }
