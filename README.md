@@ -4,6 +4,8 @@
 
 The real time event processing infrastructure gateway server for the Software Engineering Daily [Android](https://github.com/SoftwareEngineeringDaily/SEDaily-Android), [iOS](https://github.com/SoftwareEngineeringDaily/se-daily-iOS), and [web front end](https://github.com/SoftwareEngineeringDaily/sedaily-front-end). The SEDaily event stream is responsible for authenticating connecting clients and validating event payload schemas before putting the event on the SED event bus. Interested clients can subscribe to events on the stream.
 
+<a href="https://travis-ci.org/andrewmarklloyd/sedaily-event-stream"><img src="https://travis-ci.org/andrewmarklloyd/sedaily-event-stream.svg?branch=develop"></img></a>
+
 ## Getting Started
 ```sh
 $ git clone https://github.com/SoftwareEngineeringDaily/sedaily-event-stream.git
