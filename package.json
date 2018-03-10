@@ -1,5 +1,5 @@
 {
-  "name": "sedaily-event",
+  "name": "sedaily-event-stream",
   "version": "1.0.0",
   "description": "Gateway service for accepting SEDaily events and publishing to Kafka",
   "author": "Andrew Lloyd <andrew85.lloyd@gmail.com>",

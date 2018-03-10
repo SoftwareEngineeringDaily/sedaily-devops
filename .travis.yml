@@ -15,8 +15,7 @@ before_script:
  - ./influxdb_install/usr/bin/influxd &
  
 script:
-  # - yarn test:check-coverage
   - npm run lint
-  - npm run test
+  - npm run test:check-coverage
 after_script:
-  # - yarn report-coverage
+  # - npm run report-coverage
