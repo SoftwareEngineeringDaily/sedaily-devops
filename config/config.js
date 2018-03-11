@@ -10,8 +10,6 @@ const envVarsSchema = Joi.object({
     .default('development'),
   PORT: Joi.number()
     .default(3000),
-  JWT_SECRET: Joi.string().required()
-    .description('JWT Secret required to sign'),
   INFLUXDB_HOST: Joi.string().required()
     .description('Host URL for InfluxDB server'),
   INFLUXDB_PORT: Joi.number()
