@@ -49,3 +49,6 @@ node_modules
 
 # .env
 .env
+
+# Yarn since we use npm
+yarn.lock
