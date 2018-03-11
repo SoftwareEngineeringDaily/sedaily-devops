@@ -12,10 +12,6 @@ const envVarsSchema = Joi.object({
     .default(3000),
   JWT_SECRET: Joi.string().required()
     .description('JWT Secret required to sign'),
-  REDIS_HOST: Joi.string().required()
-    .description('Host URL for Redis server'),
-  REDIS_PORT: Joi.number()
-    .default(6379),
   INFLUXDB_HOST: Joi.string().required()
     .description('Host URL for InfluxDB server'),
   INFLUXDB_PORT: Joi.number()
