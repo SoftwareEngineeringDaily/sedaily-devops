@@ -9,10 +9,10 @@ services:
      - INFLUXDB_HTTP_AUTH_ENABLED=true
      - INFLUXDB_ADMIN_USER=admin
      - INFLUXDB_ADMIN_PASSWORD=admin
-  event-gateway:
+  sedaily-devops:
     build:
       context: .
-    container_name: event-gateway
+    container_name: sedaily-devops
     volumes:
       # Mounts the project directory on the host to /app inside the container,
       # allowing you to modify the code without having to rebuild the image.
