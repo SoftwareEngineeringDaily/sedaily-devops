@@ -105,6 +105,7 @@
   "devDependencies": {
     "lcov2badge": "^0.1.0",
     "minimist": "^1.2.0",
+    "request": "^2.83.0",
     "swagger-node-express": "^2.1.3"
   }
 }
