@@ -6,7 +6,7 @@ The real time event processing infrastructure gateway server for the Software En
 
 <div>
   <a href="https://travis-ci.org/SoftwareEngineeringDaily/sedaily-devops"><img src="https://travis-ci.org/SoftwareEngineeringDaily/sedaily-devops.svg?branch=develop"></img></a>
-  <img src="https://wt-1364ed7c3f0364e6608ffd3c14d53518-0.run.webtask.io/coverage-badge" hspace="10"></img>
+  <img src="https://wt-1364ed7c3f0364e6608ffd3c14d53518-0.run.webtask.io/coverage-badge?service=github" hspace="10"></img>
 </div>
 
 ## Getting Started
