@@ -5,6 +5,7 @@ export default {
     body: {
       clientId: Joi.string().required(),
       deviceType: Joi.string().required().valid(['iOS', 'Android', 'Browser', 'API']),
+      eventApiEnv: Joi.string().required().valid(['Prod', 'Test']),
       eventTime: Joi.date().timestamp('unix').required(),
       eventData: Joi.object().required(),
       eventType: Joi.string().required().valid([
