@@ -9,6 +9,7 @@ describe('## Register Events', () => {
   it('sending valid register event is successful', (done) => {
     const event = {
       clientId: '1234567',
+      eventApiEnv: 'production',
       deviceType: 'Android',
       eventTime: new Date().getTime(),
       eventType: 'register',

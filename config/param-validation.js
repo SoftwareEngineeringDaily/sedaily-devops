@@ -5,6 +5,7 @@ export default {
     body: {
       clientId: Joi.string().required(),
       deviceType: Joi.string().required().valid(['iOS', 'Android', 'Browser', 'API']),
+      eventApiEnv: Joi.string().required().valid(['production', 'test']),
       eventTime: Joi.date().timestamp('unix').required(),
       eventData: Joi.object().required(),
       eventType: Joi.string().required().valid([
@@ -26,6 +27,7 @@ export default {
     body: {
       clientId: Joi.string().required(),
       deviceType: Joi.string().required().valid(['iOS', 'Android', 'Browser', 'API']),
+      eventApiEnv: Joi.string().required().valid(['production', 'test']),
       errorTime: Joi.date().timestamp('unix').required(),
       errorData: Joi.object().required(),
     }
