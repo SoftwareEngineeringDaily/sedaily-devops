@@ -29,7 +29,13 @@ export default {
       deviceType: Joi.string().required().valid(['iOS', 'Android', 'Browser', 'API']),
       eventApiEnv: Joi.string().required().valid(['production', 'test']),
       errorTime: Joi.date().timestamp('unix').required(),
-      errorData: Joi.object().required(),
+      errorType: Joi.string().required().valid([
+        'auth',
+        'other'
+      ]),
+      errorData: Joi.object().required().keys({
+        message: Joi.string().required()
+      })
     }
   },
   register: Joi.object().required().keys(),
