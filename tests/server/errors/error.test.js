@@ -12,8 +12,9 @@ describe('## Basic Error APIs', () => {
       eventApiEnv: 'production',
       deviceType: 'API',
       errorTime: new Date().getTime(),
+      errorType: 'auth',
       errorData: {
-        errorType: 'Unauthorized'
+        message: 'Unauthorized user'
       }
     };
     request(app)
@@ -33,7 +34,10 @@ describe('## Basic Error APIs', () => {
       deviceType: 'Browser',
       eventApiEnv: 'production',
       errorTime: new Date().getTime(),
-      errorData: {}
+      errorType: 'auth',
+      errorData: {
+        message: 'Unauthorized user'
+      }
     };
     request(app)
       .post('/api/v1/error')
@@ -52,8 +56,9 @@ describe('## Basic Error APIs', () => {
       clientId: '1234567',
       eventApiEnv: 'production',
       errorTime: new Date().getTime(),
+      errorType: 'other',
       errorData: {
-        userId: '3462562'
+        message: 'Error sending mailchimp email'
       }
     };
     request(app)
@@ -73,8 +78,9 @@ describe('## Basic Error APIs', () => {
       clientId: '1234567',
       eventApiEnv: 'production',
       deviceType: 'API',
+      errorType: 'other',
       errorData: {
-        userId: '3462562'
+        message: 'Username not found: Andrew'
       }
     };
     request(app)
@@ -94,7 +100,8 @@ describe('## Basic Error APIs', () => {
       clientId: '1234567',
       eventApiEnv: 'production',
       deviceType: 'API',
-      errorTime: new Date().getTime()
+      errorTime: new Date().getTime(),
+      errorType: 'other',
     };
     request(app)
       .post('/api/v1/error')
@@ -111,11 +118,12 @@ describe('## Basic Error APIs', () => {
   it('errors when no eventApiEnv is sent', (done) => {
     const error = {
       clientId: '1234567',
-      errorData: {
-        userId: '3462562'
-      },
       deviceType: 'API',
-      errorTime: new Date().getTime()
+      errorTime: new Date().getTime(),
+      errorType: 'auth',
+      errorData: {
+        message: 'User not allowed to perform function'
+      },
     };
     request(app)
       .post('/api/v1/error')
@@ -133,8 +141,9 @@ describe('## Basic Error APIs', () => {
     const error = {
       clientId: '1234567',
       eventApiEnv: 'prod',
+      errorType: 'other',
       errorData: {
-        userId: '3462562'
+        message: 'Username not found'
       },
       deviceType: 'API',
       errorTime: new Date().getTime()
@@ -146,6 +155,50 @@ describe('## Basic Error APIs', () => {
       .then((res) => {
         expect(res.body).to.exist; //eslint-disable-line
         expect(res.body.message).to.equal('"eventApiEnv" must be one of [production, test]'); //eslint-disable-line
+        done();
+      })
+      .catch(done);
+  });
+
+  it('errors when errorType sent is wrong type', (done) => {
+    const error = {
+      clientId: '1234567',
+      eventApiEnv: 'production',
+      errorType: '404',
+      errorData: {
+        message: 'Web page not found'
+      },
+      deviceType: 'API',
+      errorTime: new Date().getTime()
+    };
+    request(app)
+      .post('/api/v1/error')
+      .send(error)
+      .expect(httpStatus.BAD_REQUEST)
+      .then((res) => {
+        expect(res.body).to.exist; //eslint-disable-line
+        expect(res.body.message).to.equal('"errorType" must be one of [auth, other]'); //eslint-disable-line
+        done();
+      })
+      .catch(done);
+  });
+
+  it('errors when errorData sent has no message', (done) => {
+    const error = {
+      clientId: '1234567',
+      eventApiEnv: 'production',
+      errorType: 'other',
+      errorData: {},
+      deviceType: 'API',
+      errorTime: new Date().getTime()
+    };
+    request(app)
+      .post('/api/v1/error')
+      .send(error)
+      .expect(httpStatus.BAD_REQUEST)
+      .then((res) => {
+        expect(res.body).to.exist; //eslint-disable-line
+        expect(res.body.message).to.equal('"message" is required'); //eslint-disable-line
         done();
       })
       .catch(done);
