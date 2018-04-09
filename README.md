@@ -43,7 +43,8 @@ loginEvent: (username) => {
     deviceType: 'Browser',
     eventTime: new Date().getTime(),
     eventType: 'login',
-    eventData: {}
+    eventData: {},
+    eventApiEnv: `${EVENT_API_ENV}`
   })
 }
 ```
@@ -62,7 +63,8 @@ playEpisodeEvent: (username, playEvent) => {
       episodeName: playEvent.episodeName,
       minutesPlayed: playEvent.minutesPlayed,
       minutesRemaining: playEvent.minutesRemaining
-    }
+    },
+    eventApiEnv: `${EVENT_API_ENV}`
   })
 }
 ```
