@@ -1,0 +1,61 @@
+definitions:
+  Error:
+    type: object
+    properties:
+      message:
+        type: string
+        description: Reason for error
+        example: Error message
+      stack:
+        type: string
+        description: Stack trace resulting in error
+  Event:
+    type: object
+    properties:
+      clientId:
+        type: string
+        description: Id of user initiating event
+        example: user01
+      deviceType: 
+        type: string
+        description: type of device where the event originates
+        enum: [iOS, Android, Browser, API]
+        example: Android
+      eventApiEnv: 
+        type: string
+        description: environment where the event originates
+        enum: [production, test]
+        example: test
+      eventTime:
+        type: string
+        format: unix-time
+        description: valid timestamp of when event is triggered
+        example: 1522767185
+      eventData:
+        type: object
+        description: raw data of the event being streamed        
+      eventType:
+        type: string
+        description: type of event being streamed
+        enum: [register,
+        login,
+        logout,
+        playEpisode,
+        pauseEpisode,
+        likeEpisode,
+        completedEpisode,
+        fastForwardEpisode,
+        rewindEpisode,
+        seekEpisode,
+        searchEpisode]
+    required:
+      - clientId
+      - deviceType
+      - eventApiEnv
+      - eventTime
+      - eventData
+      - eventType
+  Token:
+    type: string
+    description: JSON web token to store credentials
+    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OWY4Njc3YzFkNmZmZDNkMGJkODMzNGIiLCJwYXNzd29yZCI6IiQyYSQwOCRoMEgyR2FWbWh1V0tNd1hSWlRYekxPcDMuWG85OGJmYVZYWXp2cURuU2p1SGlrZE9YRmd3LiIsInVzZXJuYW1lIjoiam9obkBqYWNvYi5jb20iLCJfX3YiOjAsImNyZWF0ZWRBdCI6IjIwMTctMTAtMzFUMTI6MDc6MjQuNTAyWiIsImlhdCI6MTUwOTQ1Mjk0MywiZXhwIjoxNjUzNDUyOTQzfQ.2yECxNnmM6u9wcUkYq1OPX6HzfcLeaOgoQ35PJ2fQZs
