@@ -71,7 +71,7 @@
     "jsonwebtoken": "8.0.0",
     "kafka-node": "2.2.3",
     "lcov2badge": "^0.1.0",
-    "lodash": "4.17.4",
+    "lodash": "4.17.5",
     "method-override": "2.3.9",
     "mocha": "3.5.0",
     "moment": "2.19.3",
